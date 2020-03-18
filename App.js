@@ -1,12 +1,29 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { AppLoading } from 'expo'
+import * as Font from 'expo-font'
 
-export default function App() {
-  return (
-    <View style={{flex:1,justifyContent:"center"}}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+import PlacesNavigator from "./navigation/PlacesNavigator";
+
+const fetchFonts = () => {
+	return Font.loadAsync({
+		'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+		'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
+	})
 }
 
-
+export default function App() {
+	const [fontLoaded, setFontLoaded] = useState(false)
+	if (!fontLoaded) {
+		return (
+			<AppLoading
+				startAsync={fetchFonts}
+				onFinish={() => {
+					setFontLoaded(true)
+				}}
+			/>
+		)
+	}
+	return (
+		<PlacesNavigator />
+	);
+}
