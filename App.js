@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { AppLoading } from 'expo'
 import * as Font from 'expo-font'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
+import ReduxThunk from 'redux-thunk'
 
 import PlacesNavigator from "./navigation/PlacesNavigator";
+import placesReducer from './store/reducers/places'
 
 const fetchFonts = () => {
 	return Font.loadAsync({
@@ -10,6 +14,12 @@ const fetchFonts = () => {
 		'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
 	})
 }
+
+const rootReducer = combineReducers({
+	places: placesReducer
+})
+
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
 
 export default function App() {
 	const [fontLoaded, setFontLoaded] = useState(false)
@@ -24,6 +34,8 @@ export default function App() {
 		)
 	}
 	return (
-		<PlacesNavigator />
+		<Provider store={store}>
+			<PlacesNavigator />
+		</Provider>
 	);
 }
