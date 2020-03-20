@@ -2,7 +2,7 @@ import { ADD_PLACE } from "../actions/places";
 import Place from "../../models/place";
 
 const initialState = {
-    places=[]
+    places:[]
 }
 
 export default (state = initialState, action) => {
@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
             const newPlace = new Place(new Date().toString(), action.placeData.title)
             return {
                 ...state,
-                places=state.places.concat(newPlace)
+                places:state.places.concat(newPlace)
             }
         default:
             return state
