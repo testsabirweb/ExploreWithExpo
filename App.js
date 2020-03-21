@@ -7,6 +7,16 @@ import ReduxThunk from 'redux-thunk'
 
 import PlacesNavigator from "./navigation/PlacesNavigator";
 import placesReducer from './store/reducers/places'
+import { initDB } from './database/db'
+
+initDB()
+	.then(() => {
+		console.log('Initialize database successfully')
+	})
+	.catch(err => {
+		console.log('Initialization of database failed')
+		console.log(err)
+	})
 
 const fetchFonts = () => {
 	return Font.loadAsync({
