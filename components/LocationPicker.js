@@ -12,6 +12,7 @@ import * as Permissions from 'expo-permissions';
 
 
 import { COLORS } from '../constants/Colors';
+import MapPreview from './MapPreview'
 
 const LocationPicker = (props) => {
     const [pickedLocation, setPickedLocation] = useState()
@@ -54,12 +55,12 @@ const LocationPicker = (props) => {
 
     return (
         <View style={styles.locationPicker}>
-            <View style={styles.mapPreview}>
+            <MapPreview style={styles.mapPreview} location={pickedLocation} >
                 {isFetching ?
                     <ActivityIndicator color={COLORS.primary} size='large' /> :
                     <Text style={styles.previewText}>No Location chosen yet...</Text>
                 }
-            </View>
+            </MapPreview>
             <Button
                 title='Get User Location'
                 color={COLORS.primary}
@@ -79,9 +80,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 150,
         borderColor: '#ccc',
-        borderWidth: 1,
-        justifyContent: "center",
-        alignItems: 'center'
+        borderWidth: 1
     },
     previewText: {
         fontFamily: 'open-sans',
