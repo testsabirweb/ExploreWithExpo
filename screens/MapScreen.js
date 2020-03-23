@@ -22,13 +22,14 @@ const MapScreen = (props) => {
         })
     }, [savePickedLocationHandler])
 
-    const mapRegion = {
-        latitude: 37.85,
-        longitude: -120.25,
+    let mapRegion = {
+        latitude: 22.7182,
+        longitude: 75.8593,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.042
     }
     const selectLocationHandler = (e) => {
+        console.log(e)
         setSelectedLocation({
             lat: e.nativeEvent.coordinate.latitude,
             lng: e.nativeEvent.coordinate.longitude
@@ -38,6 +39,11 @@ const MapScreen = (props) => {
     let markerCoordinates;
     if (selectedLocation) {
         markerCoordinates = {
+            latitude: selectedLocation.lat,
+            longitude: selectedLocation.lng
+        }
+        mapRegion = {
+            ...mapRegion,
             latitude: selectedLocation.lat,
             longitude: selectedLocation.lng
         }
